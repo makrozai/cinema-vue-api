@@ -11,6 +11,6 @@ export default namespace('global', {
   mutations: [
     'startProcessing',
     'stopProcessing',
-    'setLanguaje'
+    'setLanguage'
   ]
 });

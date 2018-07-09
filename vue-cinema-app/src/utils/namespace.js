@@ -10,8 +10,8 @@ export default (module, types) => {
   let newObj ={};
   mapValues(types, (names, type) => {
     newObj[type] = {};
-    types.[type].forEach(name => {
-      newObj.[type][name] = module + ':' + name;
+    types[type].forEach(name => {
+      newObj[type][name] = module + ':' + name;
     });
   });
   return newObj;
