@@ -23,12 +23,16 @@ Vue.use(BlockUI);
 //.blockui
 
 //modulos y tipos
-import globalTypes from '@/types/global'; 
+import globalTypes from '@/types/global';
+import authModule from '@/modules/auth';
 //.modulos y tipos
 
 //vee-validate
 import VeeValidate, {Validator} from 'vee-validate';
-//TODO Vlidator con traducciones;
+import validatorEs from '@/validator/es';
+import validatorEn from '@/validator/en';
+Validator.localize('es', validatorEs);
+
 Vue.use(VeeValidate);
 //.vee-validate
 
@@ -46,7 +50,17 @@ export const store = new Vuex.Store({
   actions: {
     [globalTypes.actions.changeLanguages]: ({commit}, lang) => {
       commit(globalTypes.mutations.setLanguage, lang);
-      //TODO Validator con instrucciones
+      
+      switch(lang) {
+        case 'en': {
+          Validator.localize('en', validatorEn);
+          break;
+        }
+        case 'es': {
+          Validator.localize('es'. validatorEs);
+          break;
+        }
+      }
     }
   },
   getters: {
@@ -65,12 +79,24 @@ export const store = new Vuex.Store({
     }
   },
   modules: {
-    
+    authModule
   }
 });
 //.global store
 
+//vue traducciones
+import VueI18n from 'vue-i18n';
+Vue.use(VueI18n);
+import messages from '@/translations';
+const i18n = new VueI18n({
+  locale: store.state.language,
+  messages
+});
+//.vue traducciones
+
 new Vue({
   el: '#app',
-  render: h => h(App)
+  render: h => h(App),
+  store,
+  i18n
 })
