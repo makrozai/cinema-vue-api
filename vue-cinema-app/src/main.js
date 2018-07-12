@@ -23,7 +23,7 @@ Vue.use(BlockUI);
 //.blockui
 
 //modulos y tipos
-import GlobalTypes from '@/types/global'; 
+import globalTypes from '@/types/global'; 
 //.modulos y tipos
 
 //vee-validate
@@ -44,21 +44,28 @@ export const store = new Vuex.Store({
     lenguage: 'es'
   },
   actions: {
-    [GlobalTypes.actions.changeLanguages]: ({commit}, lang) => {
-      commit(GlobalTypes.mutations.setLanguage, lang);
+    [globalTypes.actions.changeLanguages]: ({commit}, lang) => {
+      commit(globalTypes.mutations.setLanguage, lang);
       //TODO Validator con instrucciones
     }
   },
   getters: {
-
+    [globalTypes.getters.processing]: state => state.processing,
+    [globalTypes.getters.language]: state => state.language,
   },
   mutations: {
-    [GlobalTypes.mutations.setLanguage] (state, lang) {
+    [globalTypes.mutations.startProcessing] (state) {
+      state.processing = true;
+    },
+    [globalTypes.mutations.stopProcessing] (state) {
+      state.processing = false;
+    },
+    [globalTypes.mutations.setLanguage] (state, lang) {
       state.lenguage = lang;
     }
   },
   modules: {
-
+    
   }
 });
 //.global store
